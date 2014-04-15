@@ -2,7 +2,7 @@
 
 import matplotlib as mpl
 mpl.use('Agg')
-import os, datetime, sys, shapefile
+import os, datetime, sys, shapefile, glob
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
@@ -124,7 +124,9 @@ labeldate = ms+' '+yyyy
 
 imgsize = sys.argv[2]   #(expects 620, 1000, DIY, HD, or HDSD)
 
-dfile = './Data/climdiv-pcpndv-v1.0.0-20140304'
+
+dfile = glob.glob('./Data/*pcp*')
+dfile = dfile[0]
 
 path = '/usr/local/share/fonts/truetype/msttcorefonts/Trebuchet_MS.ttf'
 propr = font_manager.FontProperties(fname=path)
@@ -174,7 +176,7 @@ if(imgsize == 'HD'):
 	figxsize = 21.33
 	figysize = 10.25
 	figdpi = 72
-	lllon, lllat, urlon, urlat = [-123.89399, 19.66787, -53.30945, 48.18950]
+	lllon, lllat, urlon, urlat = [-126.95182, 19.66787, -52.88712, 46.33016]
 	logo_image = './noaa_logo_100.png'
 	logo_x = 1421
 	logo_y = 35

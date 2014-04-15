@@ -107,7 +107,8 @@ if(imgsize == 'HD'):
 	draw = ImageDraw.Draw(hdim)
 	fntpath = '/usr/local/share/fonts/truetype/msttcorefonts/Trebuchet_MS.ttf'
 	fnt1 = ImageFont.truetype(fntpath, 14)
-	draw.text((1620,815), labeldate, (0,0,0), font=fnt1)
+	xpos = 1662 - ((len(labeldate)*8)-9)/2
+	draw.text((xpos,815), labeldate, (0,0,0), font=fnt1)
 
 	
 	#Add the colorbar
@@ -119,7 +120,7 @@ if(imgsize == 'HD'):
 	cbar_im = Image.new("RGB", new_size)
 	cbar_im.paste(cbar_orig, ((new_size[0]-old_size[0])/2,
                       (new_size[1]-old_size[1])/2))
-	hdim.paste(cbar_im, (474,865))
+	hdim.paste(cbar_im, (474,866))
 
 
 	fnt4 = ImageFont.truetype(fntpath, 47)
@@ -161,7 +162,8 @@ if(imgsize == 'HDSD'):
 	draw = ImageDraw.Draw(hdim)
 	fntpath = '/usr/local/share/fonts/truetype/msttcorefonts/Trebuchet_MS.ttf'
 	fnt1 = ImageFont.truetype(fntpath, 14)
-	draw.text((1427,785), labeldate, (0,0,0), font=fnt1)	
+	xpos = 1470 - ((len(labeldate)*8)-9)/2
+	draw.text((xpos,785), labeldate, (0,0,0), font=fnt1)	
 	
 	#Add the colorbar
 	cbar_orig = Image.open('temporary_cbar.png')
