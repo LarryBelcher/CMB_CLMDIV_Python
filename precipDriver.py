@@ -138,7 +138,7 @@ if(imgsize == 'HD'):
 
 	
 	img_path = '../Images/Precipitation/'+imgsize+'/'
-	img_name = 'totalprecip-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'hd-'+mm+'-00.png'
+	img_name = 'totalprecip-monthly-cmb--'+imgw+'x'+imgh+'hd--'+yyyy+'-'+mm+'-00.png'
 	pngfile = img_path+img_name
 	print "Saving "+pngfile
 	hdim.save(pngfile)
@@ -190,7 +190,7 @@ if(imgsize == 'HDSD'):
 	draw.polygon([(1420,911), (1435,901), (1420,891)], fill="black", outline="black")
 	
 	img_path = '../Images/Precipitation/'+imgsize+'/'
-	img_name = 'totalprecip-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'hdsd-'+mm+'-00.png'
+	img_name = 'totalprecip-monthly-cmb--'+imgw+'x'+imgh+'hdsd--'+yyyy+'-'+mm+'-00.png'
 	pngfile = img_path+img_name
 	print "Saving "+pngfile
 	hdim.save(pngfile)
