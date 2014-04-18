@@ -62,7 +62,7 @@ if(imgsize == '620' or imgsize == '1000'):
 	img_path = '../Images/Temperature/'+imgsize+'/'
 	imgw = str(im3.size[0])
 	imgh = str(im3.size[1])
-	img_name = 'clmdivavgt--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
+	img_name = 'averagetemp-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
 	pngfile = img_path+img_name
 	print "Saving "+pngfile
 	im3.save(pngfile)
@@ -74,16 +74,16 @@ if(imgsize == 'DIY'):
 	imgw = str(imgs.size[0])
 	imgh = str(imgs.size[1])
 	img_path = '../Images/Temperature/'+imgsize+'/'
-	img_name = 'clmdivavgt--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
+	img_name = 'averagetemp-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
 	cmd = 'mv '+im1+' '+img_name
 	os.system(cmd)
 	im2 = "./temporary_cbar.eps"
-	cbar_name = 'clmdivavgt--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00_colorbar.eps'
+	cbar_name = 'averagetemp-monthly-cmb--'+yyyy+'-'+mm+'-00_colorbar.eps'
 	cmd = 'mv '+im2+' '+cbar_name
 	os.system(cmd)	
-	cmd1 = 'zip clmdivavgt--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.zip '+img_name+' '+cbar_name+' noaa_logo.eps '
+	cmd1 = 'zip averagetemp-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.zip '+img_name+' '+cbar_name+' noaa_logo.eps '
 	os.system(cmd1)
-	cmd2 = 'mv clmdivavgt--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.zip '+img_path
+	cmd2 = 'mv averagetemp-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.zip '+img_path
 	os.system(cmd2)
 	cmd3 = 'rm '+img_name+' '+cbar_name
 	os.system(cmd3)
@@ -133,7 +133,7 @@ if(imgsize == 'HD'):
 	draw.polygon([(1420,946), (1435,936), (1420,926)], fill="black", outline="black")
 	
 	img_path = '../Images/Temperature/'+imgsize+'/'
-	img_name = 'clmdivavgt--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
+	img_name = 'averagetemp-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
 	pngfile = img_path+img_name
 	print "Saving "+pngfile
 	hdim.save(pngfile)
@@ -181,7 +181,7 @@ if(imgsize == 'HDSD'):
 	draw.polygon([(1420,911), (1435,901), (1420,891)], fill="black", outline="black")
 	
 	img_path = '../Images/Temperature/'+imgsize+'/'
-	img_name = 'clmdivavgt--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
+	img_name = 'averagetemp-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
 	pngfile = img_path+img_name
 	print "Saving "+pngfile
 	hdim.save(pngfile)

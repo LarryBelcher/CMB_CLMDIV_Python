@@ -160,9 +160,9 @@ if(imgsize == '1000'):
 	bgcol = '#F5F5F5'
 
 if(imgsize == 'DIY'):
-	figxsize = 56.89
-	figysize = 36.435
-	figdpi = 72
+	figxsize = 13.655
+	figysize = 8.745
+	figdpi = 300
 	lllon, lllat, urlon, urlat = [-119.8939, 21.6678, -62.3094, 49.1895]
 	logo_image = './noaa_logo_42.png'
 	logo_x = 946
