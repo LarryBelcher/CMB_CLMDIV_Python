@@ -21,7 +21,19 @@ tavgColorbar.py (precipColorbar.py)	- Creates a corresponding colorbar for avg t
 
 Program Usage:
 
-TBA...
+Image production begins by executing tavgDriver.py (precipDriver.py), which
+will create a monthly average temperature (monthly total precipitation) image of a desired size. The possible image sizes 
+(in pixel width) include 620px, 1000px, 4096px (DIY), 1920px (HD, or HDSD). An example 
+call to the  driver routine:
+
+“path to python”  tavgDriver.py “YYYYMM” “image size”
+
+e.g., 
+/usr/bin/python  tavgDriver.py 201401 620
+
+The above call would produce a climate division monthly average temperature image for 
+January, 2014 at 620px wide.
+
 
 
 Valid “image size” values are:
