@@ -7,7 +7,7 @@ from PIL import ImageDraw
 from PIL import ImageFont
 import os, datetime, sys
 import numpy as np
-import _imaging
+
 
 
 def int2str(mm):
@@ -49,7 +49,7 @@ if not os.path.isdir('../Images'):
 	cmd = 'mkdir ../Images'
 	os.system(cmd)
 if not os.path.isdir('../Images/Precipitation/'+imgsize):
-	cmd = 'mkdir ../Images/Precipitation/'+imgsize
+	cmd = 'mkdir ../Images/Precipitation/'+imgsize.lower()
 	os.system(cmd)
 
 
@@ -73,7 +73,7 @@ if(imgsize == 'DIY'):
 	imgs = Image.open(im1)
 	imgw = str(imgs.size[0])
 	imgh = str(imgs.size[1])
-	img_path = '../Images/Precipitation/'+imgsize+'/'
+	img_path = '../Images/Precipitation/'+imgsize.lower()+'/'
 	img_name = 'totalprecip-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
 	cmd = 'mv '+im1+' '+img_name
 	os.system(cmd)
@@ -137,7 +137,7 @@ if(imgsize == 'HD'):
 	draw.text((858,915), text2, (0,0,0), font=fnt5)
 
 	
-	img_path = '../Images/Precipitation/'+imgsize+'/'
+	img_path = '../Images/Precipitation/'+imgsize.lower()+'/'
 	img_name = 'totalprecip-monthly-cmb--'+imgw+'x'+imgh+'hd--'+yyyy+'-'+mm+'-00.png'
 	pngfile = img_path+img_name
 	print "Saving "+pngfile
@@ -189,7 +189,7 @@ if(imgsize == 'HDSD'):
 	draw.polygon([(500,911), (485,901), (500,891)], fill="black", outline="black")
 	draw.polygon([(1420,911), (1435,901), (1420,891)], fill="black", outline="black")
 	
-	img_path = '../Images/Precipitation/'+imgsize+'/'
+	img_path = '../Images/Precipitation/'+imgsize.lower()+'/'
 	img_name = 'totalprecip-monthly-cmb--'+imgw+'x'+imgh+'hdsd--'+yyyy+'-'+mm+'-00.png'
 	pngfile = img_path+img_name
 	print "Saving "+pngfile
