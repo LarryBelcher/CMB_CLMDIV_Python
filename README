@@ -51,6 +51,7 @@ The scripts included here were built for Python 2.7. The following
 modules must exist on the system for them to perform correctly:
 
 matplotlib-1.1.1 (or higher)
+shapefile (included with pyshp)
 PIL (python imaging library, 1.1.7 or higher, PIL is the Python Imaging Library)
 mpl_toolkits.basemap
 numpy
