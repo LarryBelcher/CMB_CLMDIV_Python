@@ -5,7 +5,7 @@ mpl.use('Agg')
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
-import os, datetime, sys
+import os, datetime, sys, subprocess
 import numpy as np
 
 
@@ -37,20 +37,22 @@ imgsize = sys.argv[2]   #(expects 620, 1000, DIY, HD, or HDSD)
 
 figdpi = 72
 
-cmd = "/usr/bin/python ./tavgMap.py "+fdate+" "+imgsize
-os.system(cmd)
+
+p1 = subprocess.Popen("python tavgMap.py "+fdate+" "+imgsize, shell=True)
+p1.wait()
 
 
-cmd = "/usr/bin/python ./tavgColorbar.py "+fdate+" "+imgsize
-os.system(cmd)
+p2 = subprocess.Popen("python tavgColorbar.py "+fdate+" "+imgsize, shell=True)
+p2.wait()
 
 
 if not os.path.isdir('../Images'):
 	cmd = 'mkdir ../Images'
-	os.system(cmd)
+	subprocess.call(cmd)
 if not os.path.isdir('../Images/Temperature/'+imgsize):
 	cmd = 'mkdir ../Images/Temperature/'+imgsize.lower()
-	os.system(cmd)
+	subprocess.call(cmd)
+
 
 
 if(imgsize == '620' or imgsize == '1000'):
@@ -76,18 +78,18 @@ if(imgsize == 'DIY'):
 	img_path = '../Images/Temperature/'+imgsize.lower()+'/'
 	img_name = 'averagetemp-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
 	cmd = 'mv '+im1+' '+img_name
-	os.system(cmd)
+	subprocess.call(cmd,shell=True)
 	im2 = "./temporary_cbar.eps"
 	cbar_name = 'averagetemp-monthly-cmb--'+yyyy+'-'+mm+'-00_colorbar.eps'
 	cmd = 'mv '+im2+' '+cbar_name
-	os.system(cmd)	
+	subprocess.call(cmd,shell=True)
 	cmd1 = 'zip averagetemp-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.zip '+img_name+' '+cbar_name+' noaa_logo.eps '
-	os.system(cmd1)
+	subprocess.call(cmd1,shell=True)
 	cmd2 = 'mv averagetemp-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.zip '+img_path
-	os.system(cmd2)
+	subprocess.call(cmd2,shell=True)
 	cmd3 = 'rm '+img_name+' '+cbar_name
-	os.system(cmd3)
-	
+	subprocess.call(cmd3,shell=True)
+
 	
 if(imgsize == 'HD'):
 	hdim = Image.new("RGB", (1920,1080), color='#FFFFFF')
