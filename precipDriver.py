@@ -9,7 +9,7 @@ import os, datetime, sys, subprocess
 import numpy as np
 
 
-
+subprocess.call(cmd
 def int2str(mm):
 	if(mm == '01'): ms = 'January'
 	if(mm == '02'): ms = 'February'
@@ -38,19 +38,19 @@ imgsize = sys.argv[2]   #(expects 620, 1000, DIY, HD, or HDSD)
 figdpi = 72
 
 
-p1 = subprocess.Popen("python precipMap.py "+fdate+" "+imgsize)
+p1 = subprocess.Popen("python precipMap.py "+fdate+" "+imgsize, shell=True)
 p1.wait()
 
 
-p2 = subprocess.Popen("python precipColorbar.py "+fdate+" "+imgsize)
+p2 = subprocess.Popen("python precipColorbar.py "+fdate+" "+imgsize, shell=True)
 p2.wait()
 
 if not os.path.isdir('../Images'):
 	cmd = 'mkdir ../Images'
-	subprocess.call(cmd)
+	subprocess.call(cmd, shell=True)
 if not os.path.isdir('../Images/Precipitation/'+imgsize):
 	cmd = 'mkdir ../Images/Precipitation/'+imgsize.lower()
-	subprocess.call(cmd)
+	subprocess.call(cmd, shell=True)
 
 
 if(imgsize == '620' or imgsize == '1000'):
@@ -76,17 +76,17 @@ if(imgsize == 'DIY'):
 	img_path = '../Images/Precipitation/'+imgsize.lower()+'/'
 	img_name = 'totalprecip-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
 	cmd = 'mv '+im1+' '+img_name
-	subprocess.call(cmd)
+	subprocess.call(cmd, shell=True)
 	im2 = "./temporary_cbar.eps"
 	cbar_name = 'totalprecip-monthly-cmb--'+yyyy+'-'+mm+'-00_colorbar.eps'
 	cmd = 'mv '+im2+' '+cbar_name
-	subprocess.call(cmd)	
+	subprocess.call(cmd, shell=True)	
 	cmd1 = 'zip totalprecip-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.zip '+img_name+' '+cbar_name+' noaa_logo.eps '
-	subprocess.call(cmd1)
+	subprocess.call(cmd1, shell=True)
 	cmd2 = 'mv totalprecip-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.zip '+img_path
-	subprocess.call(cmd2)
+	subprocess.call(cmd2, shell=True)
 	cmd3 = 'rm '+img_name+' '+cbar_name
-	subprocess.call(cmd3)
+	subprocess.call(cmd3, shell=True)
 	
 	
 if(imgsize == 'HD'):

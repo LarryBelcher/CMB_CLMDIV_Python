@@ -20,11 +20,11 @@ clientfiledate = int(out.split('-')[3])
 
 if(serverfiledate != clientfiledate):
 	cmd = 'rm '+localfilename
-	subprocess.call(cmd)
+	subprocess.call(cmd, shell=True)
 	cmd = 'wget '+fileurl
-	subprocess.call(cmd)
+	subprocess.call(cmd, shell=True)
 	cmd = 'mv '+serverfilename+' ./Data/'
-	subprocess.call(cmd)
+	subprocess.call(cmd, shell=True)
 	
 	
 ###Check the avg temp file
@@ -43,8 +43,8 @@ clientfiledate = int(out.split('-')[3])
 
 if(serverfiledate != clientfiledate):
 	cmd = 'rm '+localfilename
-	subprocess.call(cmd)
+	subprocess.call(cmd, shell=True)
 	cmd = 'wget '+fileurl
-	subprocess.call(cmd)
+	subprocess.call(cmd, shell=True)
 	cmd = 'mv '+serverfilename+' ./Data/'
-	subprocess.call(cmd)
+	subprocess.call(cmd, shell=True)
