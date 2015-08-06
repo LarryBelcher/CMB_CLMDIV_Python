@@ -9,8 +9,9 @@ import os, datetime, sys, subprocess
 import numpy as np
 
 
-subprocess.call(cmd
+
 def int2str(mm):
+	if(mm == '00'): ms = 'No Data'
 	if(mm == '01'): ms = 'January'
 	if(mm == '02'): ms = 'February'
 	if(mm == '03'): ms = 'March'
@@ -31,7 +32,9 @@ yyyy = fdate[0:4]
 mm = fdate[4:]
 ms = int2str(mm)
 labeldate = ms+' '+yyyy
-
+if(ms == 'No Data'): 
+	labeldate = ms
+	yyyy = '0000'
 
 imgsize = sys.argv[2]   #(expects 620, 1000, DIY, HD, or HDSD)
 
@@ -106,10 +109,24 @@ if(imgsize == 'HD'):
 	
 	draw = ImageDraw.Draw(hdim)
 	fntpath = '/usr/local/share/fonts/truetype/msttcorefonts/Trebuchet_MS.ttf'
-	fnt1 = ImageFont.truetype(fntpath, 14)
-	xpos = 1662 - ((len(labeldate)*8)-9)/2
+	fnt1 = ImageFont.truetype(fntpath, 18)
+	if(mm == '00'): xpos = 1632
+	if(mm == '01'): xpos = 1615
+	if(mm == '02'): xpos = 1610
+	if(mm == '03'): xpos = 1623
+	if(mm == '04'): xpos = 1625
+	if(mm == '05'): xpos = 1630
+	if(mm == '06'): xpos = 1624
+	if(mm == '07'): xpos = 1626
+	if(mm == '08'): xpos = 1618
+	if(mm == '09'): xpos = 1595
+	if(mm == '10'): xpos = 1615
+	if(mm == '11' or mm == '12'): xpos = 1600	
 	draw.text((xpos,815), labeldate, (0,0,0), font=fnt1)
 
+	fnt2 = ImageFont.truetype(fntpath, 16)
+	ttext = "Precipitation (inches)"
+	draw.text((213,815), ttext, (0,0,0), font=fnt2)
 	
 	#Add the colorbar
 	cbar_orig = Image.open('temporary_cbar.png')
@@ -131,10 +148,6 @@ if(imgsize == 'HD'):
 	
 	draw.polygon([(500,946), (485,936), (500,926)], fill="black", outline="black")
 	draw.polygon([(1420,946), (1435,936), (1420,926)], fill="black", outline="black")
-	
-	fnt5 = ImageFont.truetype(fntpath, 36)
-	text2 = "precipitation"
-	draw.text((858,915), text2, (0,0,0), font=fnt5)
 
 	
 	img_path = '../Images/Precipitation/'+imgsize.lower()+'/'
@@ -161,9 +174,24 @@ if(imgsize == 'HDSD'):
 	
 	draw = ImageDraw.Draw(hdim)
 	fntpath = '/usr/local/share/fonts/truetype/msttcorefonts/Trebuchet_MS.ttf'
-	fnt1 = ImageFont.truetype(fntpath, 14)
-	xpos = 1470 - ((len(labeldate)*8)-9)/2
-	draw.text((xpos,785), labeldate, (0,0,0), font=fnt1)	
+	fnt1 = ImageFont.truetype(fntpath, 18)
+	if(mm == '00'): xpos = 1440
+	if(mm == '01'): xpos = 1420
+	if(mm == '02'): xpos = 1417
+	if(mm == '03'): xpos = 1427
+	if(mm == '04'): xpos = 1434
+	if(mm == '05'): xpos = 1437
+	if(mm == '06'): xpos = 1433
+	if(mm == '07'): xpos = 1434
+	if(mm == '08'): xpos = 1425
+	if(mm == '09'): xpos = 1403
+	if(mm == '10'): xpos = 1420
+	if(mm == '11' or mm == '12'): xpos = 1410
+	draw.text((xpos,781), labeldate, (0,0,0), font=fnt1)
+	
+	fnt2 = ImageFont.truetype(fntpath, 14)
+	ttext = "Precipitation (inches)"
+	draw.text((405,781), ttext, (0,0,0), font=fnt2)
 	
 	#Add the colorbar
 	cbar_orig = Image.open('temporary_cbar.png')
@@ -182,9 +210,7 @@ if(imgsize == 'HDSD'):
 	text3 = "more"
 	draw.text((1300,870), text3, (0,0,0), font=fnt4)
 	
-	fnt5 = ImageFont.truetype(fntpath, 36)
-	text2 = "precipitation"
-	draw.text((856,880), text2, (0,0,0), font=fnt5)
+
 	
 	draw.polygon([(500,911), (485,901), (500,891)], fill="black", outline="black")
 	draw.polygon([(1420,911), (1435,901), (1420,891)], fill="black", outline="black")

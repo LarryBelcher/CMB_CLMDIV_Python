@@ -5,7 +5,7 @@ import os, sys, time, subprocess
 
 
 ###Check the avg temp file
-cmd = 'curl ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/ | grep tmpcdv'
+cmd = 'curl ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/ | grep climdiv-tmpcdv'
 proc = subprocess.Popen([cmd], stdout=subprocess.PIPE, shell=True)
 (out, err) = proc.communicate()
 serverfilename = out.split()[8]
@@ -28,7 +28,7 @@ if(serverfiledate != clientfiledate):
 	
 	
 ###Check the avg temp file
-cmd = 'curl ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/ | grep pcpndv'
+cmd = 'curl ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/ | grep climdiv-pcpndv'
 proc = subprocess.Popen([cmd], stdout=subprocess.PIPE, shell=True)
 (out, err) = proc.communicate()
 serverfilename = out.split()[8]

@@ -85,6 +85,7 @@ def gmtColormap(fileName):
       return (colorDict)
 
 def int2str(mm):
+	if(mm == '00'): ms = 'No Data'
 	if(mm == '01'): ms = 'January'
 	if(mm == '02'): ms = 'February'
 	if(mm == '03'): ms = 'March'
@@ -104,6 +105,9 @@ yyyy = fdate[0:4]
 mm = fdate[4:]
 ms = int2str(mm)
 labeldate = ms+' '+yyyy
+if(ms == 'No Data'):
+	labeldate = ms
+	yyyy = '0000'
 
 imgsize = sys.argv[2]   #(expects 620, 1000, DIY, HD, or HDSD)
 
@@ -123,7 +127,7 @@ if(imgsize == '620'):
 	t2x = 0.577; t2y = 0.678
 	t3x = 0.006; t3y = 0.77
 	t4x = 0.899; t4y = 0.77
-	t5x = 0.901; t5y = 0.55
+	t5x = 0.904; t5y = 0.55
 	pngfile = "temporary_cbar.png"
 
 if(imgsize == '1000'):
@@ -137,7 +141,7 @@ if(imgsize == '1000'):
 	t2x = 0.549; t2y = 0.684
 	t3x = 0.004; t3y = 0.77
 	t4x = 0.938; t4y = 0.77
-	t5x = 0.939; t5y = 0.55
+	t5x = 0.941; t5y = 0.55
 	pngfile = "temporary_cbar.png"
 
 if(imgsize == 'DIY'):
@@ -186,7 +190,7 @@ if(imgsize == '620' or imgsize == '1000' or imgsize == 'DIY'):
 
 	plt.text(t3x, t3y, labeldate, fontproperties=propr, size=fsiz2, color='#8D8D8D')
 	plt.text(t4x, t4y, 'Climate.gov', fontproperties=propr, size=fsiz2, color='#8D8D8D')
-	plt.text(t5x, t5y, 'Data: NCDC', fontproperties=propr, size=fsiz2, color='#8D8D8D')
+	plt.text(t5x, t5y, 'Data: NCEI', fontproperties=propr, size=fsiz2, color='#8D8D8D')
 
 cdict1 = gmtColormap('./CPT/temperature_0-100.cpt')
 cmap = LinearSegmentedColormap('cmap_temp', cdict1)

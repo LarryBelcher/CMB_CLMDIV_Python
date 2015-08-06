@@ -100,6 +100,7 @@ def gmtColormap(fileName):
 
 
 def int2str(mm):
+	if(mm == '00'): ms = 'No Data'
 	if(mm == '01'): ms = 'January'
 	if(mm == '02'): ms = 'February'
 	if(mm == '03'): ms = 'March'
@@ -120,7 +121,9 @@ yyyy = fdate[0:4]
 mm = fdate[4:]
 ms = int2str(mm)
 labeldate = ms+' '+yyyy
-
+if(ms == 'No Data'):
+	labeldate = ms
+	yyyy = '0000'
 
 imgsize = sys.argv[2]   #(expects 620, 1000, DIY, HD, or HDSD)
 
@@ -145,6 +148,7 @@ if(imgsize == '620'):
 	base_img = './CONUS_620_BaseLayer.png'
 	line_img = './CONUS_620_stateLines.png'
 	bgcol = '#F5F5F5'
+	cmask = "./Custom_mask.png"
 
 if(imgsize == '1000'):
 	figxsize = 13.89
@@ -158,6 +162,7 @@ if(imgsize == '1000'):
 	base_img = './CONUS_1000_BaseLayer.png'
 	line_img = './CONUS_1000_stateLines.png'
 	bgcol = '#F5F5F5'
+	cmask = "./Custom_mask.png"
 
 if(imgsize == 'DIY'):
 	figxsize = 13.655
@@ -171,6 +176,7 @@ if(imgsize == 'DIY'):
 	base_img = './CONUS_DIY_BaseLayer.png'
 	line_img = './CONUS_DIY_stateLines.png'
 	bgcol = '#F5F5F5'
+	cmask = "./Custom_mask.png"
 
 if(imgsize == 'HD'):
 	figxsize = 21.33
@@ -185,6 +191,7 @@ if(imgsize == 'HD'):
 	line_img = './CONUS_HD_stateLines.png'
 	framestat = 'False'
 	bgcol = '#F5F5F5'
+	cmask = "./Custom_HD_mask.png"
 
 if(imgsize == 'HDSD'):
 	figxsize = 16
@@ -199,6 +206,7 @@ if(imgsize == 'HDSD'):
 	line_img = './CONUS_HDSD_stateLines.png'
 	framestat = 'False'
 	bgcol = '#F5F5F5'
+	cmask = "./Custom_HDSD_mask.png"
 
 
 fig = plt.figure(figsize=(figxsize,figysize))
@@ -240,36 +248,40 @@ valmin = 0.
 cwidth = valmax - valmin #used to determine where a given data value lies in the span of the color ramp (0-100=100, 20-80=60 and so on)
 cmap_temp = LinearSegmentedColormap('cmap_temp', cdict1)
 
+if(mm != '00'):
 
-#Now read in the Climate Division Shapes and fill the basemap 
-r = shapefile.Reader(r"./Shapefiles/GIS_OFFICIAL_CLIM_DIVISIONS")
-shapes = r.shapes()
-records = r.records()
+	#Now read in the Climate Division Shapes and fill the basemap 
+	r = shapefile.Reader(r"./Shapefiles/GIS_OFFICIAL_CLIM_DIVISIONS")
+	shapes = r.shapes()
+	records = r.records()
 
-for record, shape in zip(records,shapes):
-    lons,lats = zip(*shape.points)
-    data = np.array(m(lons, lats)).T
- 
-    if len(shape.parts) == 1:
-        segs = [data,]
-    else:
-        segs = []
-        for i in range(1,len(shape.parts)):
-            index = shape.parts[i-1]
-            index2 = shape.parts[i]
-            segs.append(data[index:index2])
-        segs.append(data[index2:])
- 
-    lines = LineCollection(segs,antialiaseds=(1,))
-    #Now obtain the data in a given poly and assign a color to the value
-    div = str(record[5])
-    dval = divlookup(dfile,div,yyyy,int(mm))
-    #if(dval > valmax): dval = valmax - 0.1
-    lines.set_facecolors(cmap_temp([dval/cwidth]))
-    lines.set_edgecolors(cmap_temp([dval/cwidth]))
-    lines.set_linewidth(0.25)
-    ax1.add_collection(lines)
+	for record, shape in zip(records,shapes):
+	    lons,lats = zip(*shape.points)
+	    data = np.array(m(lons, lats)).T
+	 
+	    if len(shape.parts) == 1:
+	        segs = [data,]
+	    else:
+	        segs = []
+	        for i in range(1,len(shape.parts)):
+	            index = shape.parts[i-1]
+	            index2 = shape.parts[i]
+	            segs.append(data[index:index2])
+	        segs.append(data[index2:])
+	 
+	    lines = LineCollection(segs,antialiaseds=(1,))
+	    #Now obtain the data in a given poly and assign a color to the value
+	    div = str(record[5])
+	    dval = divlookup(dfile,div,yyyy,int(mm))
+	    #if(dval > valmax): dval = valmax - 0.1
+	    lines.set_facecolors(cmap_temp([dval/cwidth]))
+	    lines.set_edgecolors(cmap_temp([dval/cwidth]))
+	    lines.set_linewidth(0.25)
+	    ax1.add_collection(lines)
 
+#Add the custom mask
+omask_im = Image.open(cmask)
+m.imshow(omask_im, origin='upper', alpha=1., zorder=10, aspect='auto', interpolation='nearest')
 
 #Add the Line image
 outline_im = Image.open(line_img)
