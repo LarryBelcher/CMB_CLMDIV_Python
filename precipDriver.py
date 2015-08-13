@@ -125,7 +125,7 @@ if(imgsize == 'HD'):
 	draw.text((xpos,815), labeldate, (0,0,0), font=fnt1)
 
 	fnt2 = ImageFont.truetype(fntpath, 16)
-	ttext = "Precipitation (inches)"
+	ttext = "Total precipitation"
 	draw.text((213,815), ttext, (0,0,0), font=fnt2)
 	
 	#Add the colorbar
@@ -190,7 +190,7 @@ if(imgsize == 'HDSD'):
 	draw.text((xpos,781), labeldate, (0,0,0), font=fnt1)
 	
 	fnt2 = ImageFont.truetype(fntpath, 14)
-	ttext = "Precipitation (inches)"
+	ttext = "Total precipitation"
 	draw.text((405,781), ttext, (0,0,0), font=fnt2)
 	
 	#Add the colorbar

@@ -141,10 +141,10 @@ if(imgsize == 'HD'):
 
 
 	fnt2 = ImageFont.truetype(fntpath, 16)
-	ttext = "Average temperature ( F)"
+	ttext = "Average temperature"
 	draw.text((213,815), ttext, (0,0,0), font=fnt2)
-	fnt2a = ImageFont.truetype(fntpath, 8)
-	draw.text((375,815), "o", (0,0,0), font=fnt2a)
+	#fnt2a = ImageFont.truetype(fntpath, 8)
+	#draw.text((375,815), "o", (0,0,0), font=fnt2a)
 
 	fnt4 = ImageFont.truetype(fntpath, 47)
 	text2 = "cool"
@@ -195,10 +195,10 @@ if(imgsize == 'HDSD'):
 	draw.text((xpos,781), labeldate, (0,0,0), font=fnt1)
 	
 	fnt2 = ImageFont.truetype(fntpath, 14)
-	ttext = "Average temperature ( F)"
+	ttext = "Average temperature"
 	draw.text((405,785), ttext, (0,0,0), font=fnt2)
-	fnt2a = ImageFont.truetype(fntpath, 8)
-	draw.text((549,784), "o", (0,0,0), font=fnt2a)
+	#fnt2a = ImageFont.truetype(fntpath, 8)
+	#draw.text((549,784), "o", (0,0,0), font=fnt2a)
 	
 	#Add the colorbar
 	cbar_orig = Image.open('temporary_cbar.png')
