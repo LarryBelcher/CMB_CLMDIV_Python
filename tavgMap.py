@@ -272,6 +272,7 @@ if(mm != '00'):
 	    lines = LineCollection(segs,antialiaseds=(1,))
 	    #Now obtain the data in a given poly and assign a color to the value
 	    div = str(record[5])
+	    #print record
 	    dval = divlookup(dfile,div,yyyy,int(mm))
 	    #if(dval > valmax): dval = valmax - 0.1
 	    lines.set_facecolors(cmap_temp([dval/cwidth]))
