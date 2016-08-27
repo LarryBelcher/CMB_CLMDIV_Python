@@ -5,8 +5,7 @@ mpl.use('Agg')
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
-import os, datetime, sys, subprocess
-import numpy as np
+import os, sys, subprocess, glob
 
 
 
@@ -41,19 +40,26 @@ imgsize = sys.argv[2]   #(expects 620, 1000, DIY, HD, or HDSD)
 figdpi = 72
 
 
+if(imgsize != 'GEO'):
+	if not os.path.isdir('./Images'):
+		cmd = 'mkdir ./Images'
+		subprocess.call(cmd,shell=True)
+	if not os.path.isdir('./Images/Precipitation/'):
+		cmd = 'mkdir ./Images/Precipitation/'
+		subprocess.call(cmd,shell=True)
+	if not os.path.isdir('./Images/Precipitation/'+imgsize):
+		cmd = 'mkdir ./Images/Precipitation/'+imgsize.lower()
+		subprocess.call(cmd,shell=True)
+
+
 p1 = subprocess.Popen("python precipMap.py "+fdate+" "+imgsize, shell=True)
 p1.wait()
 
 
-p2 = subprocess.Popen("python precipColorbar.py "+fdate+" "+imgsize, shell=True)
-p2.wait()
+if(imgsize != 'GEO'):
+	p2 = subprocess.Popen("python precipColorbar.py "+fdate+" "+imgsize, shell=True)
+	p2.wait()
 
-if not os.path.isdir('../Images'):
-	cmd = 'mkdir ../Images'
-	subprocess.call(cmd, shell=True)
-if not os.path.isdir('../Images/Precipitation/'+imgsize):
-	cmd = 'mkdir ../Images/Precipitation/'+imgsize.lower()
-	subprocess.call(cmd, shell=True)
 
 
 if(imgsize == '620' or imgsize == '1000'):
@@ -62,7 +68,7 @@ if(imgsize == '620' or imgsize == '1000'):
 	im3 = Image.new('RGBA', size = (im1.size[0], im1.size[1]+im2.size[1]))
 	im3.paste(im2, (0,im1.size[1]))
 	im3.paste(im1, (0,0))
-	img_path = '../Images/Precipitation/'+imgsize+'/'
+	img_path = './Images/Precipitation/'+imgsize+'/'
 	imgw = str(im3.size[0])
 	imgh = str(im3.size[1])
 	img_name = 'totalprecip-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
@@ -76,7 +82,7 @@ if(imgsize == 'DIY'):
 	imgs = Image.open(im1)
 	imgw = str(imgs.size[0])
 	imgh = str(imgs.size[1])
-	img_path = '../Images/Precipitation/'+imgsize.lower()+'/'
+	img_path = './Images/Precipitation/'+imgsize.lower()+'/'
 	img_name = 'totalprecip-monthly-cmb--'+imgw+'x'+imgh+'--'+yyyy+'-'+mm+'-00.png'
 	cmd = 'mv '+im1+' '+img_name
 	subprocess.call(cmd, shell=True)
@@ -90,7 +96,21 @@ if(imgsize == 'DIY'):
 	subprocess.call(cmd2, shell=True)
 	cmd3 = 'rm '+img_name+' '+cbar_name
 	subprocess.call(cmd3, shell=True)
-	
+
+if(imgsize == 'GEO'):
+	im1 = "./temporary_map.tif"
+	tifimgs = Image.open(im1)
+	tifimgw = str(tifimgs.size[0])
+	tifimgh = str(tifimgs.size[1])
+	tifimg_name = 'totalprecip-monthly-cmb--'+tifimgw+'x'+tifimgh+'--'+yyyy+'-'+mm+'-00.tif'
+	cmd = 'gdal_translate -of GTiff -a_srs EPSG:4326  -a_ullr -179.9853516 74.9853516 -59.9853516 14.9853516 '+im1+' '+tifimg_name
+	subprocess.call(cmd,shell=True)
+	zpath = './Images/Precipitation/diy/*'+yyyy+'-'+mm+'-00.zip'
+	zipfile = glob.glob(zpath)
+	cmd = 'zip -u '+zipfile[0]+' '+tifimg_name
+	subprocess.call(cmd,shell=True)
+	cmd1 = 'rm '+tifimg_name
+	subprocess.call(cmd1, shell=True)	
 	
 if(imgsize == 'HD'):
 	hdim = Image.new("RGB", (1920,1080), color='#FFFFFF')
@@ -108,7 +128,7 @@ if(imgsize == 'HD'):
 	hdim.paste(im1new, (192,108))
 	
 	draw = ImageDraw.Draw(hdim)
-	fntpath = '/usr/local/share/fonts/truetype/msttcorefonts/Trebuchet_MS.ttf'
+	fntpath = './Fonts/Trebuchet_MS.ttf'
 	fnt1 = ImageFont.truetype(fntpath, 18)
 	if(mm == '00'): xpos = 1632
 	if(mm == '01'): xpos = 1615
@@ -150,7 +170,7 @@ if(imgsize == 'HD'):
 	draw.polygon([(1420,946), (1435,936), (1420,926)], fill="black", outline="black")
 
 	
-	img_path = '../Images/Precipitation/'+imgsize.lower()+'/'
+	img_path = './Images/Precipitation/'+imgsize.lower()+'/'
 	img_name = 'totalprecip-monthly-cmb--'+imgw+'x'+imgh+'hd--'+yyyy+'-'+mm+'-00.png'
 	pngfile = img_path+img_name
 	print "Saving "+pngfile
@@ -173,7 +193,7 @@ if(imgsize == 'HDSD'):
 	hdim.paste(im1new, (384,108))
 	
 	draw = ImageDraw.Draw(hdim)
-	fntpath = '/usr/local/share/fonts/truetype/msttcorefonts/Trebuchet_MS.ttf'
+	fntpath = './Fonts/Trebuchet_MS.ttf'
 	fnt1 = ImageFont.truetype(fntpath, 18)
 	if(mm == '00'): xpos = 1440
 	if(mm == '01'): xpos = 1420
@@ -215,7 +235,7 @@ if(imgsize == 'HDSD'):
 	draw.polygon([(500,911), (485,901), (500,891)], fill="black", outline="black")
 	draw.polygon([(1420,911), (1435,901), (1420,891)], fill="black", outline="black")
 	
-	img_path = '../Images/Precipitation/'+imgsize.lower()+'/'
+	img_path = './Images/Precipitation/'+imgsize.lower()+'/'
 	img_name = 'totalprecip-monthly-cmb--'+imgw+'x'+imgh+'hdsd--'+yyyy+'-'+mm+'-00.png'
 	pngfile = img_path+img_name
 	print "Saving "+pngfile

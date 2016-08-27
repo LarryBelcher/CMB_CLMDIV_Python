@@ -1,6 +1,6 @@
 #!/bin/csh
 
-cd /Users/belcher/Desktop/NOAA_CSC/CLMDIV/Images/
+cd ./Images/
 
 #Upload all of the images
 scp -i /Users/belcher/AwsFiles/NewEarl.pem ./Temperature/620/* ubuntu@107.20.157.228:/var/www/Images/averagetemp-monthly-cmb/620/
