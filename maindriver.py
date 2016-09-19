@@ -69,7 +69,8 @@ if __name__ == '__main__':
 		
 		for j in xrange(len(isz)):
 			cmd = 'python precipDriver.py '+stryyyy+strmm+' '+isz[j]
-			subprocess.call(cmd, shell=True)
+			subprocess.call(cmd, shell=True)		
+		
 		cmd = "./UploadCMBImages.csh"
 		subprocess.call(cmd, shell=True)
 	
